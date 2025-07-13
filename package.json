@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "httpx": "^3.0.1"
+    "httpx": "^3.0.1",
+    "leaflet-draw": "^1.0.4",
+    "react-leaflet-draw": "^0.20.6"
   }
 }
