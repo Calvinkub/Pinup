@@ -5,7 +5,7 @@ import { fixLeafletIcons } from '@/utils/leafletFix';
 import { useMapData } from '@/hooks/useMapData';
 import { MapProps } from '@/types/map';
 import { LayerOption } from '@/utils/layerUtils';
-import LayerSelector from './LayerSelector';
+import LayerSelector from './LayerSelector/LayerSelector';
 import { MapLoading } from './MapLoading';
 import { MapLayers } from './MapLayers';
 
