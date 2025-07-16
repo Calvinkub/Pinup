@@ -19,6 +19,7 @@ export default function Map({ landId }: { landId: number }) {
   const [selectedLayers, setSelectedLayers] = useState<LayerOption[]>(['none'])
   const [isClient, setIsClient] = useState(false)
   const [isMapReady, setIsMapReady] = useState(false)
+  const [showPolygonUI, setShowPolygonUI] = useState(false)
 
   const shouldFetchData = selectedLayers.some((layer) => layer !== 'none')
   const {
@@ -62,6 +63,19 @@ export default function Map({ landId }: { landId: number }) {
       onLoad()
     }
   }, [])
+
+  // Toggle polygon UI toolbar
+  const togglePolygonUI = () => {
+    if (!mapRef.current || !window.longdo || !isMapReady) return;
+    
+    if (showPolygonUI) {
+      mapRef.current.Ui.Toolbar.visible(false);
+      setShowPolygonUI(false);
+    } else {
+      mapRef.current.Ui.Toolbar.visible(true);
+      setShowPolygonUI(true);
+    }
+  };
 
   // Manage layers overlay
   useEffect(() => {
@@ -137,7 +151,19 @@ export default function Map({ landId }: { landId: number }) {
 
   return (
     <div className="relative">
-      <div className="w-full h-[20px] bg-white border-b border-gray-200 px-4 flex items-center justify-end">
+      <div className="w-full h-[50px] bg-white border-b border-gray-200 px-4 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <button
+            onClick={togglePolygonUI}
+            className={`px-4 py-2 rounded text-sm font-medium transition-colors ${
+              showPolygonUI 
+                ? 'bg-red-500 text-white hover:bg-red-600' 
+                : 'bg-blue-500 text-white hover:bg-blue-600'
+            }`}
+          >
+            {showPolygonUI ? 'Hide Drawing Tools' : 'Show Drawing Tools'}
+          </button>
+        </div>
         <LayerSelector
           selectedLayers={selectedLayers}
           setSelectedLayers={setSelectedLayers}
